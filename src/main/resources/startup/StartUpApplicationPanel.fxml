@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxWidth="600.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pathplanner.gui.startup.StartUpApplicationController">
+   <children>
+      <VBox layoutY="7.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BorderPane prefHeight="205.0" prefWidth="540.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </VBox.margin>
+               <center>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/pathPlannerImage.png" />
+                     </image>
+                  </ImageView>
+               </center>
+            </BorderPane>
+            <GridPane minHeight="150.0" minWidth="600.0" prefHeight="150.0" prefWidth="600.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Create New Environment" underline="true" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Open Environment" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Exit Application" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <BorderPane>
+                     <center>
+                        <ImageView fitHeight="117.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/newDocumentIcon.png" />
+                           </image>
+                        </ImageView>
+                     </center>
+                  </BorderPane>
+                  <BorderPane GridPane.columnIndex="1">
+                     <center>
+                        <ImageView fitHeight="117.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/openDocumentIcon.png" />
+                           </image>
+                        </ImageView>
+                     </center>
+                  </BorderPane>
+                  <BorderPane GridPane.columnIndex="2">
+                     <center>
+                        <ImageView fitHeight="117.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/exitIcon.png" />
+                           </image>
+                        </ImageView>
+                     </center>
+                  </BorderPane>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#pressCreateButtonAction" opacity="0.25" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#pressOpenButtonAction" opacity="0.25" GridPane.columnIndex="1" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#pressExitButtonAction" opacity="0.25" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <Pane fx:id="PanelCreate" prefHeight="0.0" visible="false">
+                  <fx:include fx:id="CreatePanel" source="/startup/CreateNewEnvironmentPanel.fxml" />
+            </Pane>
+            <Pane fx:id="PanelOpen" prefHeight="0.0" visible="false">
+                  <fx:include fx:id="OpenPanel" source="/startup/OpenExistingEnvironmentPanel.fxml" />
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

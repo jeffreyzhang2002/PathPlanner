@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<environmentTypes>
+
+    <environment name = "Plane" default = "true">
+        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <renderClassPath> </renderClassPath>
+        <extension> .ppp </extension>
+    </environment>
+
+    <environment name = "Grid (Array)">
+        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <renderClassPath> </renderClassPath>
+        <extension> .gpp </extension>
+    </environment>
+
+    <environment name = "list (Array)">
+        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <renderClassPath> </renderClassPath>
+        <extension> .lpp </extension>
+    </environment>
+
+</environmentTypes>

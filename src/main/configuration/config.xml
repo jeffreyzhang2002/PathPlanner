@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+
+    <environment name = "Plane" default = "true">
+        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <renderClassPath> </renderClassPath>
+        <extension> .ppp </extension>
+        <actors>
+            <actor>
+                <classPath> </classPath>
+                <classRender
+            </actor>
+        </actors>
+    </environment>
+
+    <environment name = "Grid">
+        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <renderClassPath> </renderClassPath>
+        <extension> .gpp </extension>
+    </environment>
+
+</config>
