@@ -1,13 +1,14 @@
 package com.pathplanner.world.actor;
 
 import com.pathplanner.geometry.Point2D;
+import com.pathplanner.world.actor.properties.Properties;
 
 /**
- * This class represents a single actor that can be placed inside an environment. An actor stores its own position in (x,y) coordinates which must always
- * be inside of the environment at all times. The final boolean isSolid define whether this actor can share its position with another actor. Likewise the
+ * This class represents a single actor that can be placed inside an world. An actor stores its own position in (x,y) coordinates which must always
+ * be inside of the world at all times. The final boolean isSolid define whether this actor can share its position with another actor. Likewise the
  * final boolean isStatic defines whether or not this actor can change its position. By default both isSolid and isStatic is true and con be overridden
- * in the Constructor. After an actor is placed into an environment the method setPosition should not be run unless through the environment. Please
- * note that an actor should have no knowledge of the environment so collision and placement will be handled in the environment classes.
+ * in the Constructor. After an actor is placed into an world the method setPosition should not be run unless through the world. Please
+ * note that an actor should have no knowledge of the world so collision and placement will be handled in the world classes.
  * @author Jeffrey Zhang
  * @version 0.0
  * @since 10/12/2020
@@ -16,51 +17,44 @@ import com.pathplanner.geometry.Point2D;
 public abstract class Actor<E extends Number>
 {
     private Point2D<E> position;
+    private boolean placed;
+    public final Properties properties;
+
 
     /**
-     * Defines whether or not this actor can share its position with another actor. True if the actor can not share it position false otherwise
-     */
-    public final boolean isSolid;
-
-    /**
-     * Defines whether or not this actor can change its position after it is initialized. True if it can't change position false otherwise
-     */
-    public final boolean isStatic;
-
-    /**
-     * Creates an actor at the given position. This constructor will set the isSolid and isStatic to be true by default
+     * Creates an actor at the given position. This constructor will set the properties to be the default properties;
      * @param position the position this actor will be placed at
      * @throws IllegalArgumentException if position is null
      * @see IllegalArgumentException
      */
     public Actor(Point2D position)
     {
-        setPosition(position);
-        isSolid = true;
-        isStatic = true;
+        if(position == null)
+            throw new IllegalArgumentException("Non null parameters expected");
+        this.position = position;
+        properties = new Properties();
     }
 
     /**
      * Creates an actor at the give position. The parameter isSolid and isStatic can also be defined
      * @param position the position of the actor
-     * @param isSolid whether or not the actor can share its position
-     * @param isStatic whether or not the actor can change its position
+     * @param properties properties of the Actor
      */
-    public Actor(Point2D position, boolean isSolid, boolean isStatic)
+    public Actor(Point2D position, Properties properties)
     {
-        setPosition(position);
-        this.isSolid = isSolid;
-        this.isStatic = isStatic;
+        if(position == null || properties == null)
+            throw new IllegalArgumentException("Non null parameters expected");
+        this.position = position;
+        this.properties = properties;
     }
 
     /**
-     * Creates an actor at the position (0,0). This constructor will set the isSolid and isStatic field to be true bt default
+     * Creates an actor at the position (0,0). This constructor will set the properties to be the default properties
      */
     public Actor()
     {
         this.position = new Point2D(0, 0);
-        isSolid = true;
-        isStatic = true;
+        this.properties = new Properties();
     }
 
     /**
@@ -78,12 +72,25 @@ public abstract class Actor<E extends Number>
      */
     public void setPosition(Point2D<E> position)
     {
-        if(isStatic)
+        if(properties.isStatic())
             return;
         else if(position == null)
             throw new IllegalArgumentException("non-null input expected");
         this.position = position;
     }
+
+    /**
+     * Get the properties of the Actor
+     * @return the properties of the Actor
+     */
+    public Properties getProperties()
+    { return properties; }
+
+    /**
+     * Sets placed to be true. After this is turned to true, the actor can not be placed into another world
+     */
+    public void placed()
+    { placed = true; }
 
     /**
      * Gets the string representation of the actor in the format: Class Name: (x,y)

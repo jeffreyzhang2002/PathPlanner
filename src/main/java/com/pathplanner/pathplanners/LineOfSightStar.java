@@ -20,7 +20,7 @@ public class LineOfSightStar extends PathFinder<Plane>
 
     /**
      * Creates an instance of the LineOfSight algorithm. This constructor takes a plane as paramter and
-     * will be the environment the algorithm will run on.
+     * will be the world the algorithm will run on.
      * @param plane the Environment the algorithm will run on.
      */
     public LineOfSightStar(Plane plane)
@@ -37,7 +37,7 @@ public class LineOfSightStar extends PathFinder<Plane>
     { super(plane, start, end); }
 
     /**
-     * Creates an instance of the LineOfSightStar algorithm which will use the given plane as its environment and an
+     * Creates an instance of the LineOfSightStar algorithm which will use the given plane as its world and an
      * array of points as the key stopping points for the algorithm.
      * @param plane the Plane the LineOfSight algorithm will run on
      * @param point2DS list of points that this pathfinder will stop at

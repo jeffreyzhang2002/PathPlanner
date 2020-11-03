@@ -2,11 +2,13 @@ package com.pathplanner.world.actor.planeActor;
 
 import com.pathplanner.geometry.Point2D;
 import com.pathplanner.world.actor.Actor;
+import com.pathplanner.world.actor.properties.Properties;
+
 import java.util.List;
 import java.util.Set;
 
 /**
- * A PlaneActor is a type of Actor that can only be placed inside a Plane environment. A PlaneActor is not specified
+ * A PlaneActor is a type of Actor that can only be placed inside a Plane world. A PlaneActor is not specified
  * at a single point. Instead its is defined by an list of vertex points that define the shape of the actor.
  * In a PlaneActor, the isSolid field does not mean actors can not share a position inside it means the actor prevent line of sight.
  * Also each PlaneActor can generate a set of bounding points. Bounding points are offset from vertex points facing outwards.
@@ -32,16 +34,15 @@ public abstract class PlaneActor extends Actor<Double>
      * Initializes isSolid and isStatic to be true by default
      */
     public PlaneActor()
-    { super(new Point2D(0.0,0.0), true, true);}
+    { super(new Point2D(0.0,0.0));}
 
     /**
      * Constructor for creating an instance of a PlaneActor.
      * Sets isSolid and isStatic fields to be the specified values provided.
-     * @param isSolid whether or not this PlaneActor prevents line of sight
-     * @param isStatic whether or not the PlaneActor can change its position
+     * @param properties properties of the PlaneActor
      */
-    public PlaneActor(boolean isSolid, boolean isStatic)
-    { super(new Point2D<Double>(0.0,0.0), isSolid, isStatic); }
+    public PlaneActor(Properties properties)
+    { super(new Point2D<Double>(0.0,0.0), properties); }
 
     /**
      * This method returns the centroid of the PlaneActor. Since a plane barrier is not defined by a single point but instead a
@@ -89,7 +90,7 @@ public abstract class PlaneActor extends Actor<Double>
     @Override
     public void setPosition(Point2D position)
     {
-        if(isStatic)
+        if(super.properties.isStatic())
             return;
         else if(position == null)
             throw new IllegalArgumentException("Non null parameter expected");

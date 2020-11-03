@@ -3,6 +3,7 @@ package com.pathplanner.world.environment;
 import com.pathplanner.geometry.Point2D;
 import com.pathplanner.world.actor.Actor;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -20,8 +21,8 @@ public abstract class Environment<E extends Actor>
 
     /**
      * Initializes Environment with the given number of rows and columns. Rows and columns must be postive integer number not including 0
-     * @param rows the number of rows this environment has
-     * @param cols the number of columns this environment has
+     * @param rows the number of rows this world has
+     * @param cols the number of columns this world has
      * @throws IllegalArgumentException if rows or columns are less than or equal to 0
      */
     public Environment(int rows, int cols)
@@ -41,7 +42,7 @@ public abstract class Environment<E extends Actor>
 
     /**
      * Gets a set of all actors currently inside the Environment
-     * @return set of all actors inside the environment
+     * @return set of all actors inside the world
      */
     public abstract Set<E> getActors();
 
@@ -51,18 +52,24 @@ public abstract class Environment<E extends Actor>
     public abstract void clearActors();
 
     /**
-     * Adds an actor into the environment. An actor can only be added if the actor's position is a valid position in the Environment and it does not share the same position
+     * Adds an actor into the world. An actor can only be added if the actor's position is a valid position in the Environment and it does not share the same position
      * with a solid actor
      * @param actor
-     * @throws IllegalArgumentException if the actor's position is not a valid position on the environment
+     * @throws IllegalArgumentException if the actor's position is not a valid position on the world
      * @throws IllegalStateException if the actor shares a position with another solid actor
      */
     public abstract void addActor(E actor);
 
+    public void addAllActor(Collection<E> actors)
+    {
+        for(E actor : actors)
+            addActor(actor);
+    }
+    
     public abstract boolean contains(E actor);
 
     /**
-     * Checks whether the given point is a valid position in the environment. A point is considered a valid point if the x value is between [0;rows) and the y value is between
+     * Checks whether the given point is a valid position in the world. A point is considered a valid point if the x value is between [0;rows) and the y value is between
      * [0;cols)
      * @param point the point that will be checked
      * @return true if the point is valid false otherwise
@@ -71,7 +78,7 @@ public abstract class Environment<E extends Actor>
     { return point.getX().intValue() >= 0 && point.getY().intValue() < rows && point.getY().intValue() >= 0 && point.getY().intValue() < cols; }
 
     /**
-     * Checks whether the give point is on the edge of the environment. A point is considered to be on the edge if the x value is equals to 0 or rows - 1 and the y value is
+     * Checks whether the give point is on the edge of the world. A point is considered to be on the edge if the x value is equals to 0 or rows - 1 and the y value is
      * equal to 0 or colds - 1
      * @param point the point that will be checked
      * @return true if the point is on the edge false otherwise
@@ -80,29 +87,29 @@ public abstract class Environment<E extends Actor>
     { return point.getX().intValue() == 0 && point.getY().intValue() == rows - 1 && point.getY().intValue() == 0 && point.getY().intValue() == cols - 1; }
 
     /**
-     * gets the number of actors total on the environment
-     * @return the total number of actor on the environment
+     * gets the number of actors total on the world
+     * @return the total number of actor on the world
      */
     public int getActorCount()
     { return getActors().size(); }
 
     /**
-     * gets the number of rows on the environment
-     * @return the number of rows on the environment
+     * gets the number of rows on the world
+     * @return the number of rows on the world
      */
     public final int getRows()
     { return rows; }
 
     /**
-     * gets the number of columns of the environment
-     * @return the number of columns on the environment
+     * gets the number of columns of the world
+     * @return the number of columns on the world
      */
     public final int getCols()
     { return cols; }
 
     /**
-     * gets the string representation of the environment
-     * @return string representation of the environment
+     * gets the string representation of the world
+     * @return string representation of the world
      */
     public String toString()
     { return getActors().toString(); }

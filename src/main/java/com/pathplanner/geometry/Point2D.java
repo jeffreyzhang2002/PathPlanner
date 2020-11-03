@@ -1,95 +1,87 @@
 package com.pathplanner.geometry;
 
+import java.io.Serializable;
+
 /**
- * The Point2D defines a point represented as (x,y) coordinate on a 2D plane. The specificity of the point is determined
- * by the Generic E. X and Y coordinate are non-null values and cannot be NaN.
+ * The Point2D class defines a point represented as (x,y) coordinate on a 2D plane. The precision of the point is determined
+ * by the Generic T. X and Y coordinate are non-null values and cannot be NaN.
  * @author Jeffrey Zhang
  * @see Number
  * @version 0.0
  * @since 10/12/2020
- * @param <E> the specificity of the point. Can be Integer, Double, Float, etc or any class that extends java.lang.Number
+ * @param <T> the precision of the point. Must be a subclass of java.lang.Number class
+ * @see java.lang.Number
  */
-public class Point2D<E extends Number> implements Cloneable
+public class Point2D<T extends Number> implements Cloneable, Serializable
 {
-    private E x, y;
+    //The X and Y coordinates of the Point2D
+    private T x, y;
 
     /**
      * Constructs a Point2D at the specified x and y coordinates
      * @param x the x coordinate of the point
      * @param y the y coordinate of the point
      */
-    public Point2D(E x, E y)
+    public Point2D(T x, T y)
     { setLocation(x, y); }
 
     /**
-     * Constructs a Point2D at the specified Point2D.
+     * Constructs a Point2D at the specified position given by Point2D p. The precision of value of p
+     * remain the same but the values of x and y stored in the current point will match the preicison speicifed by T
+     * in the parameter should not change.
      * @param p the point to copy
      */
-    public Point2D(Point2D<E> p)
+    public Point2D(Point2D<T> p)
     { setLocation(p); }
 
     /**
-     * Convenience method to get the X coordinate of the point. Analogous to the to the {@link #getX()} method.
-     * @return The X coordinate
-     */
-    public E X()
-    { return x; }
-
-    /**
-     * Convenience method to get the Y coordinate of the point. Analogous to the to the {@Link #getY()} method.
-     * @return The Y coordinate
-     */
-    public E Y()
-    { return y; }
-
-    /**
-     * Get the X coordinate E in precision.
+     * Get the X coordinate T in precision.
      * @return the X coordinate
      */
-    public E getX()
+    public T getX()
     { return x; }
 
     /**
-     * Get the Y coordinate in E precision.
+     * Get the Y coordinate in T precision.
      * @return the Y Coordinate
      */
-    public E getY()
+    public T getY()
     { return y; }
 
     /**
-     * Sets the X coordinate of the point to the new X coordinate with precision E.
+     * Sets the X coordinate of the point to the new X coordinate with precision T.
      * @param x the new X coordinate
      * @throws IllegalArgumentException if x is null or NaN
      * @see IllegalArgumentException
      */
-    public void setX(E x)
+    public void setX(T x)
     {
         if(x == null || Double.isNaN(x.doubleValue()))
-            throw new IllegalArgumentException("non-null value expected");
+            throw new IllegalArgumentException("X: " + x + " Null and NaN are invalid inputs");
         this.x = x;
     }
 
     /**
-     * Sets the Y coordinate of the point to the new Y coordinate with precision E.
+     * Sets the Y coordinate of the point to the new Y coordinate with precision T.
      * @param y the new Y coordinate
      * @throws IllegalArgumentException if y is null or NaN
      * @see IllegalArgumentException
      */
-    public void setY(E y)
+    public void setY(T y)
     {
         if(y == null || Double.isNaN(y.doubleValue()))
-            throw new IllegalArgumentException("non-null value expected");
+            throw new IllegalArgumentException("Y: " + y + " Null and NaN are invalid inputs");
         this.y = y;
     }
 
     /**
-     * Sets the location of this point to the new X and Y coordinates. Both X and Y must have precision E.
+     * Sets the location of this point to the new X and Y coordinates. Both X and Y must have precision T.
      * @param x the new X coordinate
      * @param y the new Y coordinate
      * @throws IllegalArgumentException if x or y is null or NaN
      * @see IllegalArgumentException
      */
-    public void setLocation(E x, E y)
+    public void setLocation(T x, T y)
     {
         setX(x);
         setY(y);
@@ -99,7 +91,7 @@ public class Point2D<E extends Number> implements Cloneable
      * Sets the location of this point to the new point. The new point must have the same precision as the current point.
      * @param p the new Point
      */
-    public void setLocation(Point2D<E> p)
+    public void setLocation(Point2D<T> p)
     {
         this.x = p.x;
         this.y = p.y;
@@ -127,20 +119,20 @@ public class Point2D<E extends Number> implements Cloneable
      * @param o the point to compare
      * @return true if they are equal
      */
+    @Override
     public boolean equals(Object o)
-    {
-        return(o instanceof Point2D && ((Point2D) o).X().doubleValue() == this.X().doubleValue()
-            && ((Point2D) o).Y().doubleValue() == this.Y().doubleValue());
-    }
+    { return(o instanceof Point2D && ((Point2D) o).x.doubleValue() == this.x.doubleValue()
+            && ((Point2D) o).y.doubleValue() == this.y.doubleValue()); }
 
     /**
      * Returns the hashcode for this point using the same hashing formula found in java.awt.geom.Point2D.
      * @return the Hashcode of the current point.
      */
+    @Override
     public int hashCode()
     {
-        long l = java.lang.Double.doubleToLongBits(Y().doubleValue());
-        l = l * 31 ^ java.lang.Double.doubleToLongBits(X().doubleValue());
+        long l = java.lang.Double.doubleToLongBits(y.doubleValue());
+        l = l * 31 ^ java.lang.Double.doubleToLongBits(x.doubleValue());
         return (int) ((l >> 32) ^ l);
     }
 
@@ -148,8 +140,17 @@ public class Point2D<E extends Number> implements Cloneable
      * Returns a string representation of Point2D in the format: (x,y).
      * @return a String representation of this object
      */
+    @Override
     public String toString()
     { return "(" + x.toString() + "," + y.toString() + ")"; }
+
+    /**
+     * Creates a field for field copy of the Point2D
+     * @return Point2D
+     */
+    @Override
+    public Point2D<T> clone()
+    { return new Point2D(x,y); }
 
     /**
      * Returns the distance between Point a and Point b no matter what precision each Point is in
@@ -161,11 +162,12 @@ public class Point2D<E extends Number> implements Cloneable
     { return Math.hypot(a.x.doubleValue() - b.x.doubleValue(), a.y.doubleValue() - b.y.doubleValue()); }
 
     /**
-     * Returns the squared distance between Point a and Point b no matter what precision each Point is in
+     * returns the squared distance between Point a and Point b no matter what precision each Point is in
      * @param a the first point
-     * @param b the seond point
+     * @param b the second point
      * @return the squared distance between point a and b
      */
     public static double distanceSq(Point2D a, Point2D b)
     { return Math.pow(a.x.doubleValue() - b.x.doubleValue(), 2) + Math.pow(a.y.doubleValue() - b.y.doubleValue(), 2); }
+
 }

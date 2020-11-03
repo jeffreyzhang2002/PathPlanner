@@ -1,9 +1,12 @@
 package com.pathplanner.pathplanners;
 
 import com.pathplanner.geometry.Point2D;
+import com.pathplanner.world.actor.Actor;
+import com.pathplanner.world.actor.properties.StopPointProperties;
 import com.pathplanner.world.environment.Environment;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public abstract class PathFinder<E extends Environment>
 {
@@ -96,7 +99,7 @@ public abstract class PathFinder<E extends Environment>
     public boolean isValidPath()
     { return path != null && !path.isEmpty(); }
 
-    public Environment getEnvironment()
+    public E getEnvironment()
     { return  environment; }
 
     public List<Point2D> generatePath(boolean containCorners)
@@ -136,4 +139,45 @@ public abstract class PathFinder<E extends Environment>
 
     public String toString()
     { return constraintPoints.toString(); }
+
+    public static <T extends PathFinder> PathFinder newInstance (Class<T> c, Environment environment)
+            throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+    {
+        PathFinder pathfinder = c.getDeclaredConstructor(environment.getClass()).newInstance(environment);
+
+        Set<Actor> actors = environment.getActors();
+        Map<Integer, Point2D> map = new HashMap<>();
+        int max = 0;
+
+        for(Actor a : actors)
+            if(a.getProperties() instanceof StopPointProperties) {
+                int index = ((StopPointProperties) a.getProperties()).index;
+                if(index > max)
+                    max = index;
+                map.put(((StopPointProperties) a.getProperties()).index, a.getPosition());
+            }
+
+        for(int i = 0; i <= max; i++)
+            pathfinder.addConstraintPoint(map.get(i));
+
+        return pathfinder;
+    }
+
+    public void loadContraintPoints()
+    {
+        Set<Actor> actors = environment.getActors();
+        Map<Integer, Point2D> map = new HashMap<>();
+        int max = 0;
+
+        for(Actor a : actors)
+            if(a.getProperties() instanceof StopPointProperties) {
+                int index = ((StopPointProperties) a.getProperties()).index;
+                if(index > max)
+                    max = index;
+                map.put(((StopPointProperties) a.getProperties()).index, a.getPosition());
+            }
+
+        for(int i = 0; i <= max; i++)
+            constraintPoints.add(map.get(i));
+    }
 }

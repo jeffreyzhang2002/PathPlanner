@@ -42,7 +42,7 @@ public class Grid extends Environment<GridActor>
         GridActor a = getActor(actor.getPosition());
         if(a == null)
             actors.add(actor);
-        else if(!a.isSolid && !actor.isSolid)
+        else if(!a.getProperties().isSolid() && !actor.getProperties().isSolid())
             actors.add(actor);
     }
 
@@ -101,26 +101,26 @@ public class Grid extends Environment<GridActor>
     {
         HashSet<Point2D<Integer>> neighboringObjects = new HashSet<>();
 
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() - 1, point.Y().intValue())))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() - 1, point.Y().intValue()));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() + 1, point.Y().intValue())))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() + 1, point.Y().intValue()));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue(), point.Y() - 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue(), point.Y() - 1));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue(), point.Y() + 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue(), point.Y() + 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() - 1, point.getY().intValue())))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() - 1, point.getY().intValue()));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() + 1, point.getY().intValue())))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() + 1, point.getY().intValue()));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue(), point.getY() - 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue(), point.getY() - 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue(), point.getY() + 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue(), point.getY() + 1));
 
         if(!containCorners)
             return neighboringObjects;
 
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() - 1, point.Y() - 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() - 1, point.Y() - 1));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() + 1, point.Y() - 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() + 1, point.Y() - 1));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() - 1, point.Y() + 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() - 1, point.Y() + 1));
-        if(isValidPosition(new Point2D<Integer>(point.X().intValue() + 1, point.Y() + 1)))
-            neighboringObjects.add(new Point2D<Integer>(point.X().intValue() + 1, point.Y() + 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() - 1, point.getY() - 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() - 1, point.getY() - 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() + 1, point.getY() - 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() + 1, point.getY() - 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() - 1, point.getY() + 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() - 1, point.getY() + 1));
+        if(isValidPosition(new Point2D<Integer>(point.getX().intValue() + 1, point.getY() + 1)))
+            neighboringObjects.add(new Point2D<Integer>(point.getX().intValue() + 1, point.getY() + 1));
 
         return neighboringObjects;
     }

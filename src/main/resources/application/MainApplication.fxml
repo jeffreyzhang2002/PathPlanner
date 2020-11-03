@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.application.MainController">
    <center>
       <BorderPane>
          <center>
             <SplitPane dividerPositions="0.2, 0.8" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
-                  <Pane />
-                  <Pane />
-                  <Pane />
+                   <fx:include fx:id="LeftPanel" source="/application/leftSidePanel/LeftSidePanel.fxml" />
+                  <BorderPane fx:id="centerDisplay" prefHeight="489.0" prefWidth="617.0" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
                </items>
             </SplitPane>
          </center>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <items>
-                <Button mnemonicParsing="false" text="Button" />
-              </items>
-            </ToolBar>
+            <ToolBar fx:id="toolbar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
-            <Pane maxHeight="20.0" minHeight="20.0" BorderPane.alignment="CENTER" />
+            <FlowPane maxHeight="20.0" maxWidth="1.7976931348623157E308" minHeight="20.0" prefHeight="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="mouseLabel" text="Mouse: (X,Y)" />
+               </children>
+            </FlowPane>
          </bottom>
       </BorderPane>
    </center>

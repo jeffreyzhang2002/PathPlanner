@@ -2,9 +2,10 @@ package com.pathplanner.world.actor.gridActor;
 
 import com.pathplanner.geometry.Point2D;
 import com.pathplanner.world.actor.Actor;
+import com.pathplanner.world.actor.properties.Properties;
 
 /**
- * A GridActor is a type of Actor that can only be placed inside a Grid environment. A GridActor is a subclass of
+ * A GridActor is a type of Actor that can only be placed inside a Grid world. A GridActor is a subclass of
  * the Actor class and is only used as a helper class to specify what can be placed inside a Grid. The position
  * of a GridActor is stored in Integer precision.
  * @see com.pathplanner.world.environment.Grid
@@ -28,11 +29,10 @@ public abstract class GridActor extends Actor<Integer>
      * Creates an instance of a GridActor at the given position. The position but be in Integer precision and can not be null
      * The isSolid and isStatic field are also set by the given parameters
      * @param position the position this GridActor will be located at
-     * @param isSolid define whether or not this actor can share its position with another actor
-     * @param isStatic defines whether or not this actor can change its position
+     * @param properties the properties of the GridActor
      */
-    public GridActor(Point2D<Integer> position, boolean isSolid, boolean isStatic)
-    { super(position, isSolid, isStatic); }
+    public GridActor(Point2D<Integer> position, Properties properties)
+    { super(position, properties); }
 
     /**
      * Creates an obstacles at the position (0,0). The fields isSolid and isStatic is defaulted to true

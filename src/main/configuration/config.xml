@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<config>
-
+<config name="pathplanner">
     <environment name = "Plane" default = "true">
-        <classPath> /com/pathplanner/world/environment/Environment </classPath>
+        <classPath> com.pathplanner.world.environment.Environment.Plane </classPath>
         <renderClassPath> </renderClassPath>
+        <icon> </icon>
         <extension> .ppp </extension>
         <actors>
-            <actor>
-                <classPath> </classPath>
-                <classRender
+            <actor name = "Line">
+                <classPath>com.pathplanner.world.actor.planeActor.PlaneLineActor</classPath>
+                <renderClassPath> test </renderClassPath>
+                <icon>C:\Users\Jeffr\IdeaProjects\PathPlanner\src\main\resources\assets\LinePlaneActor.png </icon>
+            </actor>
+            <actor name = "Rectangle">
+                <classPath> test </classPath>
+                <renderClassPath> test </renderClassPath>
+                <icon> C:\Users\Jeffr\IdeaProjects\PathPlanner\src\main\resources\assets\RectPlaneActor.png </icon>
+            </actor>
+            <actor name = "Point">
+                <classPath> test </classPath>
+                <renderClassPath> test </renderClassPath>
+                <icon> C:\Users\Jeffr\IdeaProjects\PathPlanner\src\main\resources\assets\PointPlaneActor.png </icon>
+            </actor>
+            <actor name = "Polygon">
+                <classPath> test </classPath>
+                <renderClassPath> test </renderClassPath>
+                <icon> C:\Users\Jeffr\IdeaProjects\PathPlanner\src\main\resources\assets\PolygonPlaneActor.png </icon>
+            </actor>
+            <actor name = "Ellipse">
+                <classPath> test </classPath>
+                <renderClassPath> test </renderClassPath>
+                <icon> C:\Users\Jeffr\IdeaProjects\PathPlanner\src\main\resources\assets\EllipsePlaneActor.png </icon>
             </actor>
         </actors>
     </environment>
-
     <environment name = "Grid">
         <classPath> /com/pathplanner/world/environment/Environment </classPath>
         <renderClassPath> </renderClassPath>
         <extension> .gpp </extension>
+        <actors>
+            <actor name = "Grid Actor">
+                <name> Name </name>
+                <classPath> test </classPath>
+                <classRender> test </classRender>
+            </actor>
+        </actors>
     </environment>
-
 </config>

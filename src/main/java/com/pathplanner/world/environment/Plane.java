@@ -21,6 +21,12 @@ public class Plane extends Environment<PlaneActor>
         actors = new HashSet<>();
     }
 
+    public Plane(Plane p)
+    {
+        super(p.getRows(), p.getCols());
+        this.actors = p.actors;
+    }
+
     @Override
     public void addActor(PlaneActor actor) {
         if(!super.isValidPosition(actor.getPosition()))
@@ -72,7 +78,7 @@ public class Plane extends Environment<PlaneActor>
 
         for(PlaneActor actor : actors)
         {
-            if(!actor.isSolid)
+            if(!actor.properties.isSolid())
                 continue;
 
             List<Point2D<Double>> actorVertexPoints = actor.getVertexPoints();
